@@ -7,16 +7,24 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { ListDto } from 'src/dto/listsDtos';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { get } from 'http';
+import { TaskService } from 'src/services/task-service';
 
 
 @Injectable()
 export class ListService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private taskService: TaskService
+  ) {}
+
   async createList(dto: ListDto) {
     try{
       const list = await this.prisma.list.create({
         data: {
           name: dto.name,
+          tasks: {
+            create: dto.tasks
+          }
         },
       })
       return list;

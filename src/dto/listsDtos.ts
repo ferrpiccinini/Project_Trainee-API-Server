@@ -4,5 +4,6 @@ export class ListDto {
     @IsString()
     @IsNotEmpty()
     name: string;
+
 }
 

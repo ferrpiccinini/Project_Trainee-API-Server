@@ -4,13 +4,13 @@ import {
   ConflictException,
   forwardRef,
   Inject,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ListDto } from 'src/dto/listsDtos';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { get } from 'http';
 import { TaskService } from 'src/services/task-service';
-
+import { validateUUIDOrThrow } from 'src/utils/uuid.helper';
 
 
 @Injectable()
@@ -52,7 +52,8 @@ export class ListService {
   }
 
   async getListById(id: string) {
-    const list = await this.prisma.list.findUnique({
+      validateUUIDOrThrow(id, 'List ID');
+      const list = await this.prisma.list.findUnique({
       where: {id: id,},
       include: { tasks: true }
     });
@@ -77,8 +78,8 @@ export class ListService {
   }
 
   async updateList(id: string, dto: ListDto) {
+    validateUUIDOrThrow(id, 'List ID');
     const existingList = await this.getListById(id);
-    console.log(existingList);
     if (existingList) {
       const listWithSameName = await this.prisma.list.findUnique({
         where: {
@@ -102,7 +103,7 @@ export class ListService {
   
   async deleteList(id: string) {
     const existingList = await this.getListById(id);
-  
+    validateUUIDOrThrow(id, 'List ID');
     if (existingList) {
       await this.prisma.list.delete({
         where: { id: existingList.id },

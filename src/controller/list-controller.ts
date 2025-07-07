@@ -15,7 +15,7 @@ import { ListService } from "src/services/list-service";
             return this.listService.getAllLists();
         }
         @Get(":id")
-        getListById(@Param("id",ParseUUIDPipe) id: string) {
+        getListById(@Param("id") id: string) {
           return this.listService.getListById(id);
         }
         @Get("name/:name")
@@ -23,11 +23,11 @@ import { ListService } from "src/services/list-service";
             return this.listService.getListByName(name);
         }
         @Put(":id")
-        putList(@Param("id", ParseUUIDPipe) id: string, @Body() dto: ListDto) {
+        putList(@Param("id") id: string, @Body() dto: ListDto) {
             return this.listService.updateList(id, dto);
         }
         @Delete(":id")
-        deleteList(@Param("id", ParseUUIDPipe) id: string) {
+        deleteList(@Param("id") id: string) {
             return this.listService.deleteList(id);
         }
     }

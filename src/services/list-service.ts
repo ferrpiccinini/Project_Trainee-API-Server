@@ -2,6 +2,8 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  forwardRef,
+  Inject,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ListDto } from 'src/dto/listsDtos';
@@ -10,22 +12,26 @@ import { get } from 'http';
 import { TaskService } from 'src/services/task-service';
 
 
+
 @Injectable()
 export class ListService {
   constructor(
     private prisma: PrismaService,
+    @Inject(forwardRef(() => TaskService)) //um depende do outro ai da bo
     private taskService: TaskService
   ) {}
 
   async createList(dto: ListDto) {
     try{
+      const tasksData = dto.tasks?.map(({ listId, ...rest }) => rest) || [];
       const list = await this.prisma.list.create({
         data: {
           name: dto.name,
           tasks: {
-            create: dto.tasks
+            create: tasksData
           }
         },
+        include: { tasks: true }
       })
       return list;
     }catch(error){
@@ -38,15 +44,17 @@ export class ListService {
     }
   }
 
-  async getAllLists() {
-    return this.prisma.list.findMany();
+  getAllLists() {
+    return this.prisma.list.findMany({
+      include: { tasks: true }
+    });
+      
   }
 
   async getListById(id: string) {
     const list = await this.prisma.list.findUnique({
-      where: {
-        id: id,
-      },
+      where: {id: id,},
+      include: { tasks: true }
     });
   
     if (list) {
@@ -58,9 +66,7 @@ export class ListService {
   
   async getListByName(name: string) {
     const list = await this.prisma.list.findUnique({
-      where: {
-        name: name,
-      },
+      where: {name: name,},
     });
   
     if (list) {

@@ -34,7 +34,7 @@ export class TaskService {
     }
   }
 
-  async getTasksListById(listId: string) {
+  async getTaskbyListId(listId: string) {
     validateUUIDOrThrow(listId, 'Task ID');
     const list = await this.taskRepository.findTasksByListId(listId);
     if (list) {

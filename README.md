@@ -33,22 +33,7 @@ A aplicação ficará disponível em http://localhost:3333.
 ## Entidades
 ### List
 
-CreateListDTOS{
-    name: string;
-}
-
-UpdateListDTOS{
-    id: string;
-    name:string;
-}
-
-ListDTOS{
-    id: string;
-    name: string;
-    tasks: TaskDTOS[]
-}
-
-Entidade: Task
+```
 TaskDTOS {
     id: string;
     name: string;
@@ -74,3 +59,5 @@ UpdateTaskDTOS {
     expectedFinishDate?: Date|null;
     listId: string;
 }
+
+```

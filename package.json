@@ -20,8 +20,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@nestjs/common": "^11.1.5",
     "@nestjs/core": "^11.1.5",
+=======
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/core": "^11.0.1",
+>>>>>>> 443e319c8e1a8ea65dd5830fa3994f1ad6aabf66
     "@nestjs/platform-express": "^11.0.1",
     "@prisma/client": "^6.10.1",
     "class-transformer": "^0.5.1",
@@ -55,8 +60,12 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
+<<<<<<< HEAD
     "typescript-eslint": "^8.20.0",
     "vitest": "^3.2.4"
+=======
+    "typescript-eslint": "^8.20.0"
+>>>>>>> 443e319c8e1a8ea65dd5830fa3994f1ad6aabf66
   },
   "jest": {
     "moduleFileExtensions": [

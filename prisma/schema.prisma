@@ -27,7 +27,18 @@ model Task {
   priority           Priority  @default(MEDIUM)
   listId             String
   expectedFinishDate DateTime?
+<<<<<<< HEAD
   finishDate         DateTime?
   list               List      @relation(fields: [listId], references: [id], onDelete: Cascade)
 }
 
+=======
+  list               List      @relation(fields: [listId], references: [id])
+}
+
+//? opcional
+// @unique apenas um, nao pode se repetir 
+// @default kkk é intuitivo
+// tipo DateTime == melhor jeito de exibir datas
+//references: [id]: esse listId aponta para o campo id do modelo List.
+>>>>>>> 443e319c8e1a8ea65dd5830fa3994f1ad6aabf66

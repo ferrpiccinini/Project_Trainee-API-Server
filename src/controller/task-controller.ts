@@ -11,8 +11,13 @@ import { TaskService } from "src/services/task-service";
         }
 
         @Get("lists/:listId")
+<<<<<<< HEAD
         getTaskbyListId(@Param("listId") listId: string) {
             return this.taskService.getTaskbyListId(listId);
+=======
+        getTasksListById(@Param("listId") listId: string) {
+            return this.taskService.getTasksListById(listId);
+>>>>>>> 443e319c8e1a8ea65dd5830fa3994f1ad6aabf66
         }
 
         @Get(":taskid")
